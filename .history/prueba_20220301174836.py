@@ -1,0 +1,2 @@
+cadena = 'WBWBWWWB'
+Filas = 
