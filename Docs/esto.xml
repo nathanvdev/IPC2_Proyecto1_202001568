@@ -30,4 +30,14 @@
       <patron codigo="cod32">BBBWW</patron>
     </patrones>
   </piso>
+  <piso nombre="atol">
+    <R> 2 </R>
+    <C> 3 </C>
+    <F> 1000 </F>
+    <S> 1 </S>
+    <patrones>
+      <patron codigo="big">WWBWWB</patron>
+      <patron codigo="joo">BWWBWW</patron>
+    </patrones>
+  </piso>
 </pisosArtesanales>
