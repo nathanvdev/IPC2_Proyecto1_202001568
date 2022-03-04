@@ -1,0 +1,20 @@
+digraph D{
+    node[shape = box fillcolor = "FFEDBB" style = filled]
+    
+    subgraph cluster_p{
+        label = "### Tiutlo de la grafica ###"
+        bgcolor = "#398D9C"
+        edge[dir = "both"]
+
+        raiz[label = "1,1", group=1, fillcolor = white]
+        C1[label = "2,1", group=2, fillcolor = black];
+        C2[label = "3,1", group=3, fillcolor = white];
+        raiz -> C1;
+        C1 -> C2
+        {rank=same;raiz;}
+    }
+
+
+
+
+}

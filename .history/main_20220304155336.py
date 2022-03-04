@@ -2,7 +2,6 @@
 from asyncio.proactor_events import _ProactorBasePipeTransport
 from os import startfile, system
 import sys
-from tempfile import TemporaryDirectory
 from traceback import print_tb
 from xml.etree import ElementTree as ET
 from tkinter import Tk, filedialog
@@ -130,49 +129,35 @@ digraph Grafica{
 
     GraphCode += 'label = "{}"'.format(Floor.getName())
     GraphCode += '''bgcolor = "#E2A914"
-        edge[dir = "none" style= invisible]\n'''
+        edge[dir = "both" ]'''
 
     tmp = L1.First
-    RankCode = ''
+
     while tmp is not None:
         if tmp.getColor() == 'W':
             color = 'white'
         elif tmp.getColor() == 'B':
             color = 'black'
-        GraphCode += 'Node{}_{}[label= "{},{}", group={}, fillcolor= {}];\n'.format(tmp.getPosX(),tmp.getPosY(),
+        GraphCode += 'Node{}_{}[label= "{},{}", group={}, fillcolor= {}];'.format(tmp.getPosX(),tmp.getPosY(),
                                                                                 tmp.getPosX(),tmp.getPosY(),
                                                                                 tmp.getPosX(),
-                                                                             color)
-        
+                                                                                color)
         if tmp.getNext() is not None and tmp.getPosX() < Floor.getColumn():
             # Node1_1 -> Node2_1
-            GraphCode += 'Node{}_{} -> Node{}_{};\n'.format(tmp.getPosX(),tmp.getPosY(),
+            GraphCode += 'Node{}_{} -> Node{}_{};'.format(tmp.getPosX(),tmp.getPosY(),
                                                             tmp.getNext().getPosX(),tmp.getNext().getPosY())
-            RankCode += '{rank=same; '
-            RankCode += 'Node{}_{}; Node{}_{};'.format(tmp.getPosX(),tmp.getPosY(),
-                                                                        tmp.getNext().getPosX(),tmp.getNext().getPosY())
-            RankCode += '};\n'
-            
-            
-        
-        
-
-            
 
         tmpDown: Cell = tmp.getNext()
-        while tmpDown is not None:
+        while tmpDown is not None and tmpDown.getPosX() == tmp.getPosX():
             # Node1_1 -> Node1_2;
-            if tmpDown.getPosX() == tmp.getPosX() and tmpDown.getPosY() == tmp.getPosY()+1:
-                GraphCode+= 'Node{}_{} -> Node{}_{};\n'.format(tmp.getPosX(), tmp.getPosY(),
-                                                            tmpDown.getPosX(), tmpDown.getPosY())
-            tmpDown = tmpDown.getNext()
+            GraphCode+= 'Node{}_{} -> Node{}_{};'.format(tmp.getPosX(), tmp.getPosY(),
+                                                        tmpDown.getPosX(), tmpDown.getPosY())
 
-        # 
-        # 
-        
+
+
 
         tmp = tmp.getNext()
-    GraphCode += RankCode
+    
     GraphCode += '''
     }
 }    
@@ -247,6 +232,7 @@ Elige una opción:  ------->  ''')
                                 pass
                             else:
                                 Patt1 = ChosenFloor.Patrones.FindPatt(MenuPatt)
+                                PrintGraphv(Patt1)
                                 
                                 while True:
                                     if Patt1 is not None:

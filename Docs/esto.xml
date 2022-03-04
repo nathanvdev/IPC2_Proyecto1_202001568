@@ -31,13 +31,13 @@
     </patrones>
   </piso>
   <piso nombre="atol">
-    <R> 2 </R>
+    <R> 3 </R>
     <C> 3 </C>
     <F> 1000 </F>
     <S> 1 </S>
     <patrones>
-      <patron codigo="big">WWBWWB</patron>
-      <patron codigo="joo">BWWBWW</patron>
+      <patron codigo="big">WWWWWWWWW</patron>
+      <patron codigo="joo">WWWWWWWWW</patron>
     </patrones>
   </piso>
 </pisosArtesanales>

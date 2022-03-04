@@ -1,0 +1,45 @@
+digraph D{
+    node[shape = box fillcolor = "FFEDBB" style = filled]
+    label = "Nathan Valdez - 202001568"
+    
+    subgraph cluster_p{
+        label = "### Tiutlo de la grafica ###"
+        bgcolor = "#E2A914"
+        edge[dir = "none" style=invisible]
+
+        Node1_1[label= "1,1", group=1, fillcolor= white];
+        Node2_1[label= "2,1", group=2, fillcolor= white];
+        Node3_1[label= "3,1", group=3, fillcolor= white];
+        Node1_2[label= "1,2", group=1, fillcolor= white];
+        Node2_2[label= "2,2", group=2, fillcolor= white];
+        Node3_2[label= "3,2", group=3, fillcolor= white];
+        Node1_3[label= "1,3", group=1, fillcolor= white];
+        Node2_3[label= "2,3", group=2, fillcolor= white];
+        Node3_3[label= "3,3", group=3, fillcolor= white];
+
+
+        
+
+        Node1_1 -> Node1_2 -> Node1_3;
+        Node2_1 -> Node2_2 -> Node2_3;
+        Node3_1 -> Node3_2 -> Node3_3;
+
+        Node1_1 -> Node2_1 -> Node3_1;
+        Node1_2 -> Node2_2 -> Node3_2;
+        Node1_3 -> Node2_3 -> Node3_3;
+
+        { rank=same; Node1_1; Node2_1; Node3_1};
+        { rank=same; Node1_2; Node2_2; Node3_2};
+        { rank=same; Node1_3; Node2_3; Node3_3};
+        
+        
+        
+
+
+
+    }
+
+
+
+
+}

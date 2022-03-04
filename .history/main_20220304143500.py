@@ -1,13 +1,7 @@
 
-from asyncio.proactor_events import _ProactorBasePipeTransport
-from os import startfile, system
-import sys
-from tempfile import TemporaryDirectory
 from traceback import print_tb
 from xml.etree import ElementTree as ET
 from tkinter import Tk, filedialog
-
-from jinja2 import ChoiceLoader
 from CellNode import Cell
 
 from FloorList import FloorList
@@ -40,13 +34,13 @@ def ElementTree(file):
         tree = ET.parse(file)
         root = tree.getroot()
         for element in root:
-            name = element.attrib['nombre']
+            name = str(element.attrib['nombre']).upper()
             row = ''
             column = ''
             flip = ''
             slide = ''
             for subelement in element:
-                tag = str(subelement.tag).lower()
+                tag = str(subelement.tag).upper()
                 if tag == 'r':
                     row = int(subelement.text)
                 elif tag == 'c':
@@ -120,70 +114,25 @@ def SlideDown(L1: Cell_List, L2: Cell_List, Floor: Floor):
             pass
             
 
-def PrintGraphv(L1: Cell_List, Floor: Floor):
+def PrintGraphv(L1: Cell_List):
     GraphCode = ''' 
 digraph Grafica{
     node[shape = box fillcolor = "FFEDBB" style = filled]
     label = "Nathan Valdez - 202001568"
     
-    subgraph cluster_p{'''
+    subgraph cluster_p{
+        label = "### Tiutlo de la grafica ###"
+        bgcolor = "#E2A914"
+        edge[dir = "none" style=invisible]
 
-    GraphCode += 'label = "{}"'.format(Floor.getName())
-    GraphCode += '''bgcolor = "#E2A914"
-        edge[dir = "none" style= invisible]\n'''
+'''
 
     tmp = L1.First
-    RankCode = ''
-    while tmp is not None:
-        if tmp.getColor() == 'W':
-            color = 'white'
-        elif tmp.getColor() == 'B':
-            color = 'black'
-        GraphCode += 'Node{}_{}[label= "{},{}", group={}, fillcolor= {}];\n'.format(tmp.getPosX(),tmp.getPosY(),
-                                                                                tmp.getPosX(),tmp.getPosY(),
-                                                                                tmp.getPosX(),
-                                                                             color)
-        
-        if tmp.getNext() is not None and tmp.getPosX() < Floor.getColumn():
-            # Node1_1 -> Node2_1
-            GraphCode += 'Node{}_{} -> Node{}_{};\n'.format(tmp.getPosX(),tmp.getPosY(),
-                                                            tmp.getNext().getPosX(),tmp.getNext().getPosY())
-            RankCode += '{rank=same; '
-            RankCode += 'Node{}_{}; Node{}_{};'.format(tmp.getPosX(),tmp.getPosY(),
-                                                                        tmp.getNext().getPosX(),tmp.getNext().getPosY())
-            RankCode += '};\n'
-            
-            
-        
-        
 
-            
+    GraphCode += 'Node{}_{}[label= "{}", group={}, fillcolor= {}];'.format(tmp.getPosX()),tmp.getPosY(),
+                                                                        tmp.getPosX()
+    
 
-        tmpDown: Cell = tmp.getNext()
-        while tmpDown is not None:
-            # Node1_1 -> Node1_2;
-            if tmpDown.getPosX() == tmp.getPosX() and tmpDown.getPosY() == tmp.getPosY()+1:
-                GraphCode+= 'Node{}_{} -> Node{}_{};\n'.format(tmp.getPosX(), tmp.getPosY(),
-                                                            tmpDown.getPosX(), tmpDown.getPosY())
-            tmpDown = tmpDown.getNext()
-
-        # 
-        # 
-        
-
-        tmp = tmp.getNext()
-    GraphCode += RankCode
-    GraphCode += '''
-    }
-}    
-'''
-    NewFile= open('{}.dot'.format(Floor.getName()),'w')
-    NewFile.write(GraphCode)
-    NewFile.close()
-
-    system('dot -Tpng {}.dot -o {}.png'.format(Floor.getName(),Floor.getName()))
-    system('cd ./{},png'.format(Floor.getName()))
-    startfile('{}.png'.format(Floor.getName()))
         
         
         
@@ -205,7 +154,7 @@ if __name__ == '__main__':
 ||5. Salir                  ||
 ==============================
 Elige una opción:  ------->  ''')
-
+        Menu = Menu.upper()
         if Menu == '1':
             FloorList1 = FloorList()
             # FilePath = FileChooser()
@@ -221,7 +170,7 @@ Elige una opción:  ------->  ''')
 ||2. Regresar al Menu Principal                  ||
 ===================================================
 Elige una opción:  ------->  ''')
-                
+                MenuPisos.upper()
                 if MenuPisos == '2':
                     break
                 else:
@@ -230,21 +179,13 @@ Elige una opción:  ------->  ''')
                         while True:
                             MenuPatt = input('''
 =======================================================
-||1. Mostrar Graficamente el Piso                    ||
-||2. Ingresa el codigo del patron para seleccionar   ||
-||3. Atras                                           ||
+||1. Ingresa el codigo del patron para seleccionar   ||
+||2. Atras                                           ||
 =======================================================
 Elige una opción:  ------->  ''')
-                            if MenuPatt == '3':
+                            MenuPatt.upper()
+                            if MenuPatt == '2':
                                 break
-                            elif MenuPatt == '1':
-                                Cell_List1 = Cell_List()
-                                Cell_List1 = InserttPattToList(ChosenFloor, ChosenFloor.getPatrones().first)
-
-                                PrintGraphv(Cell_List1, ChosenFloor)
-
-
-                                pass
                             else:
                                 Patt1 = ChosenFloor.Patrones.FindPatt(MenuPatt)
                                 
@@ -257,10 +198,11 @@ Elige una opción:  ------->  ''')
 ||2. Atras                                           ||
 =======================================================
 Elige una opción:  ------->  ''')
+                                        MenuPatt2.upper()
                                         if MenuPatt2 == '2':
                                             break
                                         else:
-                                            
+                                            Cell_List1 = Cell_List()
                                             Cell_List2 = Cell_List()
                                             PosX = 0
                                             PosY = 1    

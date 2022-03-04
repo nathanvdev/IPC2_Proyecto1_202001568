@@ -12,7 +12,7 @@ class FloorList():
         NewFloor = Floor(name, row, column, flip, slide)
         for p in patrones:
                 code = p.attrib['codigo']
-                patt = str(p.text)
+                patt = p.text
                 patt= patt.upper()
                 NewFloor.setPattern(code, patt)
         self.Size += 1

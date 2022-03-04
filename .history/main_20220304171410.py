@@ -247,6 +247,7 @@ Elige una opción:  ------->  ''')
                                 pass
                             else:
                                 Patt1 = ChosenFloor.Patrones.FindPatt(MenuPatt)
+                                PrintGraphv(Patt1)
                                 
                                 while True:
                                     if Patt1 is not None:

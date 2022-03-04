@@ -1,13 +1,15 @@
 
 
+
 class Cell:
-    def __init__(self, posX, posY, color):
+    def __init__(self, posX, posY, color, code):
         self.PosX = posX
         self.PosY = posY
         self.Color = color
         self.Prev = None
         self.Next = None
         self.Block = False
+        self.Code = code
 
     def getPosX(self):
         return self.PosX
@@ -48,5 +50,10 @@ class Cell:
     def ShowCells(self):
         print(self.getColor(), "(",self.getPosX(),",",self.getPosY(),")")
 
-    
+    def getCode(self):
+        return self.Code
+
+    def getCode(self,code):
+        self.Code = code
+
             

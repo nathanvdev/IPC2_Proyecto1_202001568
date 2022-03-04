@@ -1,0 +1,11 @@
+digraph D{
+    node[shape = box fillcolor = "FFEDBB" style = filled]
+    label = "### Tiutlo de la grafica ###"
+    subgraph cluster_p{
+        
+    }
+
+
+
+
+}

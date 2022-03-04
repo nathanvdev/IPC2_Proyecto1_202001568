@@ -130,7 +130,7 @@ digraph Grafica{
 
     GraphCode += 'label = "{}"'.format(Floor.getName())
     GraphCode += '''bgcolor = "#E2A914"
-        edge[dir = "none" style= invisible]\n'''
+        edge[dir = "both" ]\n'''
 
     tmp = L1.First
     RankCode = ''
@@ -148,10 +148,7 @@ digraph Grafica{
             # Node1_1 -> Node2_1
             GraphCode += 'Node{}_{} -> Node{}_{};\n'.format(tmp.getPosX(),tmp.getPosY(),
                                                             tmp.getNext().getPosX(),tmp.getNext().getPosY())
-            RankCode += '{rank=same; '
-            RankCode += 'Node{}_{}; Node{}_{};'.format(tmp.getPosX(),tmp.getPosY(),
-                                                                        tmp.getNext().getPosX(),tmp.getNext().getPosY())
-            RankCode += '};\n'
+            RankCode += '{rank=same; Node1_1; Node2_1};'
             
             
         
@@ -172,7 +169,7 @@ digraph Grafica{
         
 
         tmp = tmp.getNext()
-    GraphCode += RankCode
+    
     GraphCode += '''
     }
 }    
@@ -247,6 +244,7 @@ Elige una opción:  ------->  ''')
                                 pass
                             else:
                                 Patt1 = ChosenFloor.Patrones.FindPatt(MenuPatt)
+                                PrintGraphv(Patt1)
                                 
                                 while True:
                                     if Patt1 is not None:

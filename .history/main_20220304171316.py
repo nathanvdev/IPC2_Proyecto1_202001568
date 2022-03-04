@@ -130,7 +130,7 @@ digraph Grafica{
 
     GraphCode += 'label = "{}"'.format(Floor.getName())
     GraphCode += '''bgcolor = "#E2A914"
-        edge[dir = "none" style= invisible]\n'''
+        edge[dir = "both" ]\n'''
 
     tmp = L1.First
     RankCode = ''
@@ -247,6 +247,7 @@ Elige una opción:  ------->  ''')
                                 pass
                             else:
                                 Patt1 = ChosenFloor.Patrones.FindPatt(MenuPatt)
+                                PrintGraphv(Patt1)
                                 
                                 while True:
                                     if Patt1 is not None:
