@@ -1,8 +1,15 @@
+
+from asyncio.proactor_events import _ProactorBasePipeTransport
 from os import startfile, system
+import sys
+from tempfile import TemporaryDirectory
+from traceback import print_tb
 from xml.etree import ElementTree as ET
 from tkinter import Tk, filedialog
 
+from jinja2 import ChoiceLoader
 from CellNode import Cell
+
 from FloorList import FloorList
 from FloorNode import Floor
 from PatternNode import Pattern
@@ -107,7 +114,6 @@ def SlidePatt(L1: Cell_List, L2: Cell_List):
 def SlideDown(L1: Cell_List, L2: Cell_List):
     tmp1 = L1.First
     tmp2 = L2.First
-
     while tmp1 is not None:
         if tmp1.getBlock() == False:
             tmp1Down: Cell = tmp1.getNext()
@@ -123,19 +129,6 @@ def SlideDown(L1: Cell_List, L2: Cell_List):
                 tmp1Down = tmp1Down.getNext()
         tmp1 = tmp1.getNext()
         tmp2 = tmp2.getNext()
-
-def InvertCell(L1: Cell_List, L2: Cell_List):
-    tmp1 = L1.First
-    tmp2 = L2.First
-
-    while tmp1 is not None:
-        if tmp1.getBlock() == False and tmp1.getColor() != tmp2.getColor():
-            tmp1.setColor(tmp2.getColor)
-            tmp1.BlockCell
-        tmp1 = tmp1.getNext()
-        tmp2 = tmp2.getNext()
-
-
                     
     
             
@@ -288,18 +281,7 @@ Elige una opción:  ------->  ''')
                                             # SlidePatt(Cell_List1, Cell_List2)
                                             SlideDown(Cell_List1, Cell_List2)
 
-                                            tmp = Cell_List1.First
-                                            tmpString = ''
-                                            while tmp is not None:
-                                                tmpString += tmp.getColor()
-                                                tmp = tmp.getNext()
-                                            
-                                            Patt1.setPatt(tmpString)
-                                                
-                                            
-
-
-                                            
+                                            break
 
                                             
 

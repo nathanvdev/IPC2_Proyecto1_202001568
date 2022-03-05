@@ -1,8 +1,15 @@
+
+from asyncio.proactor_events import _ProactorBasePipeTransport
 from os import startfile, system
+import sys
+from tempfile import TemporaryDirectory
+from traceback import print_tb
 from xml.etree import ElementTree as ET
 from tkinter import Tk, filedialog
 
+from jinja2 import ChoiceLoader
 from CellNode import Cell
+
 from FloorList import FloorList
 from FloorNode import Floor
 from PatternNode import Pattern
@@ -80,8 +87,6 @@ def RefreshPatt(L1:Cell_List, L2:Cell_List):
     tmp1 = L1.First
     tmp2 = L2.First
     while tmp1 is not None:
-        if tmp1.getColor() == tmp2.getColor():
-            tmp1.BlockCell()
         print(tmp1.getColor(), tmp2.getColor())
         tmp1 = tmp1.getNext()
         tmp2 = tmp2.getNext()
@@ -104,38 +109,22 @@ def SlidePatt(L1: Cell_List, L2: Cell_List):
         tmp2 = tmp2.getNext()
         tmp1Next: Cell = tmp1.getNext()
     
-def SlideDown(L1: Cell_List, L2: Cell_List):
+def SlideDown(L1: Cell_List, L2: Cell_List, Floor: Floor):
     tmp1 = L1.First
     tmp2 = L2.First
-
     while tmp1 is not None:
-        if tmp1.getBlock() == False:
-            tmp1Down: Cell = tmp1.getNext()
-            while tmp1Down is not None:
-                if tmp1Down.getPosX() == tmp1.getPosX() and tmp1Down.getPosY() == tmp1.getPosY()+1:
-                    if tmp1.getBlock() == False and tmp1.getColor() != tmp1Down.getColor():
-                        tmp = tmp1.getColor()
-                        tmp1.setColor(tmp1Down.getColor())
-                        tmp1Down.setColor(tmp)
-                        tmp1.BlockCell()
-                        RefreshPatt(L1, L2)
-                        print('----------------')
-                tmp1Down = tmp1Down.getNext()
+        tmp1Down: Cell = tmp1.getNext()
+        while tmp1Down is not None:
+            if tmp1Down.getPosX() == tmp1.getPosX and tmp1Down.getPosY == tmp1.getPosY()+1:
+                if tmp1.getBlock() == False and tmp1.getColor() != tmp1Down.getColor():
+                    tmp = tmp1.getColor()
+                    tmp1.setColor(tmp1Down.getColor())
+                    tmp1Down.setColor(tmp)
+                    tmp1.BlockCell = True
+                    RefreshPatt(L1, L2)
+                    print('----------------')
+            tmp1Down = tmp1Down.getNext()
         tmp1 = tmp1.getNext()
-        tmp2 = tmp2.getNext()
-
-def InvertCell(L1: Cell_List, L2: Cell_List):
-    tmp1 = L1.First
-    tmp2 = L2.First
-
-    while tmp1 is not None:
-        if tmp1.getBlock() == False and tmp1.getColor() != tmp2.getColor():
-            tmp1.setColor(tmp2.getColor)
-            tmp1.BlockCell
-        tmp1 = tmp1.getNext()
-        tmp2 = tmp2.getNext()
-
-
                     
     
             
@@ -171,6 +160,11 @@ digraph Grafica{
             RankCode += 'Node{}_{}; Node{}_{};'.format(tmp.getPosX(),tmp.getPosY(),
                                                                         tmp.getNext().getPosX(),tmp.getNext().getPosY())
             RankCode += '};\n'
+            
+            
+        
+        
+
             
 
         tmpDown: Cell = tmp.getNext()
@@ -216,7 +210,6 @@ Elige una opción:  ------->  ''')
 
         if Menu == '1':
             FloorList1 = FloorList()
-            Cell_List1 = Cell_List()
             # FilePath = FileChooser()
             # ElementTree(FilePath)
             ElementTree('Docs\esto.xml')
@@ -247,7 +240,7 @@ Elige una opción:  ------->  ''')
                             if MenuPatt == '3':
                                 break
                             elif MenuPatt == '1':
-                                
+                                Cell_List1 = Cell_List()
                                 Cell_List1 = InserttPattToList(ChosenFloor, ChosenFloor.getPatrones().first)
 
                                 PrintGraphv(Cell_List1, ChosenFloor)
@@ -285,21 +278,7 @@ Elige una opción:  ------->  ''')
 
                                             RefreshPatt(Cell_List1, Cell_List2)
                                             print('***********************')
-                                            # SlidePatt(Cell_List1, Cell_List2)
-                                            SlideDown(Cell_List1, Cell_List2)
-
-                                            tmp = Cell_List1.First
-                                            tmpString = ''
-                                            while tmp is not None:
-                                                tmpString += tmp.getColor()
-                                                tmp = tmp.getNext()
-                                            
-                                            Patt1.setPatt(tmpString)
-                                                
-                                            
-
-
-                                            
+                                            SlideDown(Cell_List1, Cell_List2,ChosenFloor)
 
                                             
 
