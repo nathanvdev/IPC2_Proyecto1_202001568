@@ -1,0 +1,37 @@
+ 
+digraph Grafica{
+    node[shape = box fillcolor = "FFEDBB" style = filled]
+    label = "Nathan Valdez - 202001568"
+    
+    subgraph cluster_p{label = "ejemplo02"bgcolor = "#E2A914"
+        edge[dir = "none" style= invisible]
+Node1_1[label= " ", group=1, fillcolor= white];
+Node1_1 -> Node2_1;
+Node1_1 -> Node1_2;
+Node2_1[label= " ", group=2, fillcolor= white];
+Node2_1 -> Node3_1;
+Node2_1 -> Node2_2;
+Node3_1[label= " ", group=3, fillcolor= white];
+Node3_1 -> Node3_2;
+Node1_2[label= " ", group=1, fillcolor= white];
+Node1_2 -> Node2_2;
+Node1_2 -> Node1_3;
+Node2_2[label= " ", group=2, fillcolor= black];
+Node2_2 -> Node3_2;
+Node2_2 -> Node2_3;
+Node3_2[label= " ", group=3, fillcolor= white];
+Node3_2 -> Node3_3;
+Node1_3[label= " ", group=1, fillcolor= white];
+Node1_3 -> Node2_3;
+Node2_3[label= " ", group=2, fillcolor= white];
+Node2_3 -> Node3_3;
+Node3_3[label= " ", group=3, fillcolor= black];
+{rank=same; Node1_1; Node2_1;};
+{rank=same; Node2_1; Node3_1;};
+{rank=same; Node1_2; Node2_2;};
+{rank=same; Node2_2; Node3_2;};
+{rank=same; Node1_3; Node2_3;};
+{rank=same; Node2_3; Node3_3;};
+
+    }
+}    
