@@ -1,4 +1,3 @@
-from importlib.abc import InspectLoader
 from os import startfile, system
 from xml.etree import ElementTree as ET
 from tkinter import Tk, filedialog
@@ -90,7 +89,6 @@ def InserttPattToList(Floor : Floor, Patt : Pattern):
 def RefreshPatt(L1:Cell_List, L2:Cell_List):
     tmp1 = L1.First
     tmp2 = L2.First
-    
     while tmp1 is not None:
         if tmp1.getColor() == tmp2.getColor():
             tmp1.BlockCell()
@@ -111,7 +109,8 @@ def SlidePatt(L1: Cell_List, L2: Cell_List, Floor: Floor):
                 SlideCount += 1
                 MovCount += 1
                 Instructions += '{}. Se Deslizo -->({}) de {},{} para {},{} -->({})  ||Costo: {}\n'.format(
-                    MovCount, tmp1.getColor(), tmp1.getPosX(), tmp1.getPosY(), tmp1Next.getPosX(), tmp1Next.getPosY(), tmp1Next.getColor(), Floor.getSlideCost())
+                    MovCount, tmp1.getColor(), tmp1.getPosX(), tmp1.getPosY(), tmp1Next.getPosX(),
+                     tmp1Next.getPosY(), tmp1Next.getColor(), Floor.getSlideCost())
 
                 tmp = tmp1.getColor()
                 tmp1.setColor(tmp1Next.getColor())
@@ -145,7 +144,6 @@ def SlideDown(L1: Cell_List, L2: Cell_List, Floor: Floor):
                         tmp1Down.setColor(tmp)
                         tmp1.BlockCell()
                         RefreshPatt(L1, L2)
-                        print('----------------')
                 tmp1Down = tmp1Down.getNext()
         tmp1 = tmp1.getNext()
         tmp2 = tmp2.getNext()
@@ -285,11 +283,12 @@ Elige una opción:  ------->  ''')
                         
                         while True:
                             MenuPatt = input('''
-=======================================================
-||1. Mostrar Graficamente el Piso                    ||
-||-> Ingresa el codigo del patron para seleccionar   ||
-||9. Atras                                           ||
-=======================================================
+==========================================================
+||1. Mostrar Graficamente el Piso                       ||
+||-> Para cambiar el patron por favor ingrese el codigo ||
+||   del patron que desea cambiar                       ||
+||9. Atras                                              ||
+==========================================================
 Elige una opción:  ------->  ''')
                             MenuPatt = MenuPatt.lower()
                             if MenuPatt == '9':

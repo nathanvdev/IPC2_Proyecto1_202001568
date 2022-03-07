@@ -32,6 +32,6 @@ class PatternList():
                 return tmp
             else:
                 tmp = tmp.getNext()
-        print('No se encontro el patron ingresado')
+        print('No se encontro el patron {}'.format(code))
         return None
         

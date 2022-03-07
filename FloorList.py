@@ -47,7 +47,7 @@ class FloorList():
                 return tmp
             else:
                 tmp = tmp.getNext()
-        print('No se encontro el Piso ingresado')
+        print('No se encontro el Piso {}'.format(name))
         return None
         
 

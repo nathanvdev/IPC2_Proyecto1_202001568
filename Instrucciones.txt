@@ -1,0 +1,11 @@
+Pasos que realizo el algoritmo para llegar al patron solicitado
+Evuluado el costo minimo calculado:
+
+6. Se Deslizo -->(B) de 1,2 para 2,2 -->(W)  ||Costo: 1
+7. Se Deslizo -->(B) de 3,2 para 3,3 -->(W)  ||Costo: 1
+8. Se cambio de cara (B) (2,1) para obtener W  ||Costo: 1
+9. Se cambio de cara (B) (3,1) para obtener W  ||Costo: 1
+
+---->Costo Total: 4
+---->Costo Total: 4
+---->Costo Total: 4
